@@ -7,6 +7,26 @@ public class Contact {
     private String name;
     //update date of the contact
     private String date;
+    private String photoUri;
+
+    private boolean isFavorite;
+
+
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
+    public String getPhotoUri() {
+        return photoUri;
+    }
+
+    public void setPhotoUri(String photoUri) {
+        this.photoUri = photoUri;
+    }
 
     public String getDate() {
         return date;
@@ -40,4 +60,5 @@ public class Contact {
     public void setEmails(Vector<String> emails) {
         this.emails = emails;
     }
+
 }

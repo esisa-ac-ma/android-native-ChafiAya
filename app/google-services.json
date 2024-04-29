@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "556650328378",
+    "firebase_url": "https://projet-natif-android-default-rtdb.firebaseio.com",
+    "project_id": "projet-natif-android",
+    "storage_bucket": "projet-natif-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:556650328378:android:d46c0edeafbbfceadca003",
+        "android_client_info": {
+          "package_name": "esisa.ac.ma.project_final"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCw9LQSISwwCrz0mIfhgIG2WaV6PRQRwiI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:556650328378:android:bbac01036786b3dcdca003",
+        "android_client_info": {
+          "package_name": "esisa.ac.ma.project_natif"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCw9LQSISwwCrz0mIfhgIG2WaV6PRQRwiI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

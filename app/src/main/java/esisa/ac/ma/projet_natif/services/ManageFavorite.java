@@ -18,26 +18,38 @@ public class ManageFavorite {
     private FavoriteDao favoriteDao;
     private ExecutorService executorService;
     public ManageFavorite(Context context){
-         db= Room.databaseBuilder(context,FavoriteDb.class, "favorite.db").build();
-         favoriteDao= db.favoriteDao();
-         executorService= Executors.newSingleThreadExecutor();
+        db= Room.databaseBuilder(context,FavoriteDb.class, "favorite.db").build();
+        favoriteDao= db.favoriteDao();
+        executorService= Executors.newSingleThreadExecutor();
     }
     public List<Favorite> getAll(){
         //One can use lambda
-     Future<List<Favorite>> results=executorService.submit(new Callable<List<Favorite>>() {
-         @Override
-         public List<Favorite> call() throws Exception {
-             return favoriteDao.getAll();
-         }
-     });
-     try {
+        Future<List<Favorite>> results=executorService.submit(new Callable<List<Favorite>>() {
+            @Override
+            public List<Favorite> call() throws Exception {
+                return favoriteDao.getAll();
+            }
+        });
+        try {
             return results.get();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
     public void add(Favorite favorite){
-       executorService.execute(()->favoriteDao.add(favorite));
+        executorService.execute(() -> favoriteDao.add(favorite));
+    }
+
+    public void delete(Favorite favorite){
+        executorService.execute(() -> favoriteDao.delete(favorite));
+    }
+    public int update(Favorite favorite) {
+        return favoriteDao.update(favorite);
+    }
+
+    public int getFavoriteCount() {
+        List<Favorite> favorites = getAll();
+        return favorites.size();
     }
 
 }

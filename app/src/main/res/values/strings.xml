@@ -1,10 +1,13 @@
 <resources>
-    <string name="app_name">Projet_natif</string>
+    <string name="app_name">project_final</string>
+    <string name="export" />
     <string-array name="titles">
 
         <item> Contacts</item>
         <item> Sms</item>
         <item> Call</item>
         <item> Favorite</item>
+        <item> add-favorite</item>
+        <item> no favorite </item>
     </string-array>
 </resources>

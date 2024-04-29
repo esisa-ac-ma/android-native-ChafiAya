@@ -1,6 +1,7 @@
 package esisa.ac.ma.projet_natif.views;
 
 import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,25 +29,48 @@ public class ContactFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.frag_contact,container,false);
+        return inflater.inflate(R.layout.frag_contact, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView=view.findViewById(R.id.contact_recycler);
-        launcher=registerForActivityResult(new ActivityResultContracts.RequestPermission(),
-                isGranted->{
-                        if (isGranted){
-                            System.out.println("In contact");
-                            contactAdapter = new ContactAdapter(getActivity());
-                            recyclerView.setAdapter(contactAdapter);
-                            DividerItemDecoration dividerItem= new DividerItemDecoration(recyclerView.getContext(), LinearLayoutManager.VERTICAL);
-                            recyclerView.addItemDecoration(dividerItem);
-                            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                        }
+        recyclerView = view.findViewById(R.id.contact_recycler);
+
+        contactAdapter = new ContactAdapter(requireContext());
+
+        launcher = registerForActivityResult(new ActivityResultContracts.RequestPermission(),
+                isGranted -> {
+                    if (isGranted) {
+                        loadContacts(); // Load contacts if permission is granted
+                    } else {
+                        // Permission denied, show a toast message or take appropriate action
+                        Toast.makeText(requireContext(), "Permission denied, cannot access contacts", Toast.LENGTH_SHORT).show();
+                    }
                 }
-                );
-        launcher.launch((Manifest.permission.READ_CONTACTS));
+        );
+
+        // Check if permission is already granted
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+            loadContacts(); // Load contacts if permission is already granted
+        } else {
+            // Request permission if not granted
+            launcher.launch(Manifest.permission.READ_CONTACTS);
+        }
+    }
+
+    private void loadContacts() {
+        recyclerView.setAdapter(contactAdapter);
+        DividerItemDecoration dividerItem = new DividerItemDecoration(recyclerView.getContext(), LinearLayoutManager.VERTICAL);
+        recyclerView.addItemDecoration(dividerItem);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+    }
+
+
+    public void filterContacts(String query) {
+        if (contactAdapter != null) {
+            contactAdapter.filterContacts(query);
+        }
     }
 }
