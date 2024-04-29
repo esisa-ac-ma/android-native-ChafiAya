@@ -1,5 +1,7 @@
 package esisa.ac.ma.projet_natif.entities;
 
+
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
